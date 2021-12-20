@@ -20,7 +20,7 @@ class ClientTest : MonoBehaviour
                 message = "私達は予定通り、恰度一時間を費して、インタアナショナルを出た。真暗な河岸通りに青い街灯が惨めに凍えて、烈しい海の香りをふくんだ夜風が吹きまくっていた。"
             };
 
-        _client.Send("/sp/pushMessage", JsonUtility.ToJson(m));
+        _client.Send("/test", JsonUtility.ToJson(m));
 
     }
 
