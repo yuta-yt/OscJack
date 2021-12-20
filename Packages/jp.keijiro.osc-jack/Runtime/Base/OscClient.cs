@@ -2,6 +2,7 @@
 // https://github.com/keijiro/OscJack
 
 using System;
+using System.Text;
 using System.Net;
 using System.Net.Sockets;
 
@@ -117,7 +118,7 @@ namespace OscJack
             _encoder.Clear();
             _encoder.Append(address);
             _encoder.Append(",s");
-            _encoder.Append(data);
+            _encoder.Append(Encoding.UTF8.GetBytes(data));
             _socket.Send(_encoder.Buffer, _encoder.Length, SocketFlags.None);
         }
 

@@ -9,18 +9,19 @@ class ClientTest : MonoBehaviour
 {
     OscClient _client;
 
-    IEnumerator Start()
+    void Start()
     {
         // IP address, port number
-        _client = new OscClient("127.0.0.1", 9000);
+        _client = new OscClient("127.0.0.1", 6001);
 
-        // Send two-component float values ten times.
-        for (var i = 0; i < 10; i++) {
-            yield return new WaitForSeconds(0.5f);
-            _client.Send("/test",       // OSC address
-                         i * 10.0f,     // First element
-                         Random.value); // Second element
-        }
+        var m = new Message
+            {
+                header = "その晩、私は隣室のアレキサンダー君に案内されて、始めて横浜へ遊びに出かけた。",
+                message = "私達は予定通り、恰度一時間を費して、インタアナショナルを出た。真暗な河岸通りに青い街灯が惨めに凍えて、烈しい海の香りをふくんだ夜風が吹きまくっていた。"
+            };
+
+        _client.Send("/sp/pushMessage", JsonUtility.ToJson(m));
+
     }
 
     void OnDestroy()
@@ -28,4 +29,10 @@ class ClientTest : MonoBehaviour
         _client?.Dispose();
         _client = null;
     }
+}
+
+public struct Message
+{
+    public string header;
+    public string message;
 }

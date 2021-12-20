@@ -26,6 +26,17 @@ namespace OscJack
                 _buffer[_length++] = 0;
         }
 
+        public void Append(byte[] data)
+        {
+            var len = data.Length;
+            for (var i = 0; i < len; i++)
+                _buffer[_length++] = data[i];
+
+            var len4 = OscDataTypes.Align4(len + 1);
+            for (var i = len; i < len4; i++)
+                _buffer[_length++] = 0;
+        }
+
         public void Append(int data)
         {
             _buffer[_length++] = (Byte)(data >> 24);
